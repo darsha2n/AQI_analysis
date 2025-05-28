@@ -96,3 +96,13 @@ ggplot(aqi_bangalore_yearwise, aes(x = year, y = mean_value, color = pollutant))
 #4 Air quality trends for Banglore , Chennai, Mumbai, Hyderabad
 #5 pm2.5 trend for banglore for 2015-2020
 
+
+
+
+
+
+
+
+ggplot()+
+  labs(title = "plot")+
+  labs(x="X-Axis")
