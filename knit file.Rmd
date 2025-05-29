@@ -1,0 +1,118 @@
+---
+title: "Assignment_R_markdown"
+output: html_document
+date: "2025-05-29"
+---
+```{r}
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+# Including Plots
+```{r}
+
+```
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+```{r}
+print("hello")
+```
+
+
+```{r}
+
+```
+
+```{r}
+print("Hii i'm Darshan")
+```
+
+```{r, echo=FALSE}
+library(dygraphs)
+library(plotly)
+library(xts)
+library(tidyverse)
+
+#time series vizualization 
+#eg 01 simple time series data
+
+Nile_ts <-as.xts(Nile)
+dygraph(Nile_ts,main = "Nile River Flow")
+
+
+"city_day.csv" %>% 
+  read_csv() %>% 
+  select(c(Date,NO)) %>% 
+  dygraph(main = "Time series data")
+
+#example 2 Add range selector
+
+nile_graph <- dygraph(Nile_ts,main = "Nile River Flow with Range") %>% 
+  dyRangeSelector()
+
+#Example 3 Multiple Series 
+mdeaths
+fdeaths
+data<- cbind(mdeaths,fdeaths)
+data_xts <- as.xts(data)
+dygraph(data_xts,main = "Death in the UK") %>% 
+  dySeries("mdeaths",label = "male") %>% 
+  dySeries("fdeaths", label = "female") %>% 
+  dyOptions(colors = c("red","green")) %>% 
+  dyRangeSelector()
+
+lungDeaths <- cbind(mdeaths, fdeaths)
+dygraph(as.xts(lungDeaths), main = "comparing deaths of male and femail") %>% 
+  dySeries("mdeaths", color = "darkblue") %>% 
+  dySeries("fdeaths", color = "tomato") %>% 
+  dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2) %>% 
+  dyOptions(drawPoints = TRUE, pointSize = 2) %>% 
+  dyLegend(show = "auto") %>% 
+  dyRangeSelector()
+  
+  #"auto", "always ,"anmouseover", "follow", "never"
+
+
+
+
+"city_day.csv" %>% 
+  read_csv() %>% 
+  select(c(Date,NO,NO2)) %>% 
+  dygraph(main = "Comparision Time series") %>% 
+  dyRangeSelector()
+
+
+
+
+
+#covert ggplot to plotly  example 1
+
+ggplot(mtcars,aes(x=wt,y= mpg,colour = factor(cyl)))+
+  geom_point(size=3)+
+  labs(title = "miles per gallon vs weight",
+       x="weight",y="mpg")->plot_p
+ggplotly(plot_p)
+
