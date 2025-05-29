@@ -72,7 +72,8 @@ ggplotly(plot_p)
 
 
 
-#example_2
+#example_3 line chart with hover info
+
 
 
 
