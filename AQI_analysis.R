@@ -106,3 +106,23 @@ ggplot(aqi_bangalore_yearwise, aes(x = year, y = mean_value, color = pollutant))
 ggplot()+
   labs(title = "plot")+
   labs(x="X-Axis")
+
+#heat map
+aqidf2 %>%
+  filter(pollutants == "co") %>%
+  group_by(week, weekend, month) %>%
+  summarise(meanval = mean(values, na.rm = TRUE), .groups = "drop") %>%
+  ggplot(aes(x = week, y = weekend, fill = meanval)) +
+  geom_tile(color = "white") +
+  facet_wrap(~month, scales = "free_x") +
+  scale_fill_gradientn(colors = c("darkgreen", "yellow", "red")) +
+  theme_minimal() +
+  labs(
+    title = "CO Heatmap",
+    subtitle = "For all cities (2015–2020)",
+    x = "Week Number",
+    y = "Day of Week",
+    fill = "CO Level"
+  )
+
+
